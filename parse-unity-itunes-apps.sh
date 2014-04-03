@@ -22,7 +22,7 @@ pushd "$itunesLibrary"
 echo "Output started..." > $outputLog
 
 
-echo "Name,Icon,ID,Executable,Unity,Cocos2d,AdobeAIR,Marmalade,Corona,Facebook,Mobage,HTML,Tapjoy,Appoxee,Parse,P31,NGUI,2DToolkit" > $output
+echo "Name,Icon,ID,Executable,Unity,Cocos2d,AdobeAIR,Marmalade,Corona,Facebook,Mobage,HTML,Tapjoy,Appoxee,Parse,P31,NGUI,2DToolkit,AStarPathfinding,iTween" > $output
 
 FILES=*.ipa
 for f in *; do
@@ -129,9 +129,21 @@ for f in *; do
       twoToolkit=Y
    fi
 
+   if [ -z "`grep 'm_Pathfinding_AstarData_GuidToIndex_Pathfinding_Util_Guid' $tempDirectory/extracted/*/*/$executable`" ]; then
+      astar=N
+   else
+      astar=Y
+   fi
+
+   if [ -z "`grep 'm_iTween_Init_UnityEngine_GameObject' $tempDirectory/extracted/*/*/$executable`" ]; then
+      itween=N
+   else
+      itween=Y
+   fi
+
 
    # write contents 
-   echo "$name,$icon,$id,$executable,$unity,$cocos,$adobeAir,$marmalade,$corona,$facebook,$mobage,$html,$tapjoy,$appoxee,$parse,$p31unity,$ngui,$twoToolkit" >> $output
+   echo "$name,$icon,$id,$executable,$unity,$cocos,$adobeAir,$marmalade,$corona,$facebook,$mobage,$html,$tapjoy,$appoxee,$parse,$p31unity,$ngui,$twoToolkit,$astar,$itween" >> $output
 
 done
 
