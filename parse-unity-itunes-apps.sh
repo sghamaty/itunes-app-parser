@@ -22,7 +22,7 @@ pushd "$itunesLibrary"
 echo "Output started..." > $outputLog
 
 
-echo "Name,Icon,ID,Executable,Unity,Cocos2d,AdobeAIR,Marmalade,Corona,Facebook,Mobage,HTML,Tapjoy,Appoxee,Parse,P31,NGUI,2DToolkit,AStarPathfinding,iTween" > $output
+echo "Name,Icon,ID,Executable,Unity,Cocos2d,AdobeAIR,Marmalade,Corona,Facebook,Mobage,HTML,Tapjoy,Appoxee,Parse,P31,NGUI,2DToolkit,AStarPathfinding,iTween,IOSNative,DaikonForge" > $output
 
 FILES=*.ipa
 for f in *; do
@@ -123,7 +123,7 @@ for f in *; do
       ngui=Y
    fi
 
-   if [ -z "`grep '2k2dSystem' $tempDirectory/extracted/*/*/$executable`" ]; then
+   if [ -z "`grep 'tk2dBaseSprite' $tempDirectory/extracted/*/*/$executable`" ]; then
       twoToolkit=N
    else
       twoToolkit=Y
@@ -141,9 +141,21 @@ for f in *; do
       itween=Y
    fi
 
+   if [ -z "`grep 'm_InAppPurchaseManager_loadStore' $tempDirectory/extracted/*/*/$executable`" ]; then
+      iosnative=N
+   else
+      iosnative=Y
+   fi
+
+
+   if [ -z "`grep 'dfComponentMemberInfo' $tempDirectory/extracted/*/*/$executable`" ]; then
+      daikon=N
+   else
+      daikon=Y
+   fi
 
    # write contents 
-   echo "$name,$icon,$id,$executable,$unity,$cocos,$adobeAir,$marmalade,$corona,$facebook,$mobage,$html,$tapjoy,$appoxee,$parse,$p31unity,$ngui,$twoToolkit,$astar,$itween" >> $output
+   echo "$name,$icon,$id,$executable,$unity,$cocos,$adobeAir,$marmalade,$corona,$facebook,$mobage,$html,$tapjoy,$appoxee,$parse,$p31unity,$ngui,$twoToolkit,$astar,$itween,$iosnative,$daikon" >> $output
 
 done
 
